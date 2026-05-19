@@ -53,9 +53,9 @@ Recognizing the complexity of real-world banking authorization, I incorporated a
   For more complex banking business scenarios, we can extend our design in the seed so that we can add relevant nodes and relationships, and revise our Cypher query conresponsively.
 
 - REST endpoint: `POST /api/entitlement/check`.
-- 
+
 - Seed endpoint (`POST /api/seed`) with duplicate‑safe `MERGE` statements.
-- 
+
 - Unit tests cover all scenarios plus edge cases (unknown subject, no permission, no resource).
 
 ## Setup
