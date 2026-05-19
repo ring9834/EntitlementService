@@ -5,26 +5,47 @@ Recognizing the complexity of real-world banking authorization, I incorporated a
 
 ## Features
 - Supports 10 of banking identity and relationship scenarios based on BIAN standards:
+
   1. Direct Entitlement
+  
   A customer holds a role that grants a specific permission on a resource. The query follows the BIAN path: `Customer -> PartyRole -> Entitlement -> Permission + Resource`.
+
   2. Role Inheritance
+
   Roles can inherit from others, for example, Admin inherits AccountHolder. The query traverses variable‑length paths (`[:INHERITS*0..]`) to automatically include all parent‑role entitlements without additional application logic.
+
   3. Overlapping Multiple Roles
+
   A customer may hold several roles simultaneously. The check evaluates all roles independently; access is granted if **any** role provides the required entitlement.
+
   4. Temporal (Time‑boxed) Entitlements.
+
   Entitlements carry optional `startDate` and `endDate` properties. The query only considers entitlements where `startDate <= datetime() AND endDate >= datetime()`, enabling time‑bound access such as contract workers, limited promotions.
+
   5. Emergency / Break‑Glass Access.
+
   Special emergency grants allow temporary access that bypasses normal role‑based controls. A separate `EmergencyGrant` node connected via `[:HAS_EMERGENCY_ACCESS]` holds its own `permission`, `resource`, and `expiresAt` fields. This path is evaluated right after direct entitlements.
+
   6. Segregation of Duties (SoD).
+
   Conflicting permissions such as `edit` and `approve` are linked with a `[:CONFLICTS_WITH]` edge. During an entitlement check, the query first identifies any already‑held conflicting permission on the same resource and denies access if a conflict exists.
+
   7. Delegated / Proxy Access.
+
   A customer can delegate a specific permission on a specific resource to another customer without transferring the entire role. A `Delegation` node connects the delegator to the proxy via `[:TO]`, and scopes the grant with `[:ALLOWS_DELEGATED]` and `[:ON_DELEGATED]` relationships, with a `validUntil` timestamp
+
   8. Third‑Party Consent (PSD2 / Open Banking).
+
   A data owner gives consent to a third‑party identifier (not a full customer node) through a `Consent` node. The `thirdPartyId` property is matched directly against the check subject, enabling open‑banking scenarios without creating internal customer records for every third party.
+
   9. Attribute‑Based Access Control (ABAC).
+
   Resources can be tagged with compliance labels such as GDPR, SOX via `[:TAGGED_WITH]->(:ComplianceTag)`. Customers must hold a `[:CLEARANCE_FOR]` relationship to each required tag. The query collects all tags on the target resource and verifies the customer has clearance for every one before granting access.
+
   Besides compliance labels, we design to make Resources have a property minClearance and Customers have clearanceLevel. Only customers with the value of clearanceLevel greater or equal to the value of minClearance of one resource can access to the resource.
+
   10. Resource Hierarchy / Data Scoping.
+
   Resources form a tree through `[:CHILD_OF]` relationships. If a user holds an entitlement on a parent resource such as a folder, the query expands the resource match to include all descendants—allowing access to child files without explicit individual grants.
 
   To implement and include all the above scenarios, when modeling, besides the nodes for Identity, PartyRole, Entitlement, Permission, and Resource, I also added the nodes of ComplianceTag, EmergencyGrant, Delegation, Consent, supporting resource hierarchy, overlapping roles, time-boxed conditions, segregation of duties, access delegation, thir-dparty consent, and clearance-based access control.
@@ -32,7 +53,9 @@ Recognizing the complexity of real-world banking authorization, I incorporated a
   For more complex banking business scenarios, we can extend our design in the seed so that we can add relevant nodes and relationships, and revise our Cypher query conresponsively.
 
 - REST endpoint: `POST /api/entitlement/check`.
+- 
 - Seed endpoint (`POST /api/seed`) with duplicate‑safe `MERGE` statements.
+- 
 - Unit tests cover all scenarios plus edge cases (unknown subject, no permission, no resource).
 
 ## Setup
