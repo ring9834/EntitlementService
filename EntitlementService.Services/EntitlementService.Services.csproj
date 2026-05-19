@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\EntitlementService.Data\EntitlementService.Data.csproj" />
+    <ProjectReference Include="..\EntitlementService.Models\EntitlementService.Models.csproj" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="EntitlementService.Api/EntitlementService.Api.csproj" Id="d64c30f2-5128-4b83-832d-3bd7da973769" />
+    <Project Path="EntitlementService.Data/EntitlementService.Data.csproj" />
+    <Project Path="EntitlementService.Models/EntitlementService.Models.csproj" />
+    <Project Path="EntitlementService.Services/EntitlementService.Services.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="EntitlementService.Tests/EntitlementService.Tests.csproj" Id="a36cf448-1d75-4849-8b9c-258fdc7eef75" />
+  </Folder>
+</Solution>
