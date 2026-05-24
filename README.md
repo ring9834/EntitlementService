@@ -4,7 +4,7 @@ This is an implementation of a centralised entitlement engine following BIAN sta
 Recognizing the complexity of real-world banking authorization, I incorporated a range of BIAN-compliant patterns, from role inheritance to regulatory compliance checks, into the graph model. This both validates the model's comprehensiveness and supplies diverse test data to rigorously cover positive, negative, and boundary conditions.
 
 ## Features
-- Supports 10 of banking identity and relationship scenarios based on BIAN standards:
+:trophy: - Supports 10 of banking identity and relationship scenarios based on BIAN standards:
 
   :point_right: 1. Direct Entitlement
   
@@ -52,11 +52,11 @@ Recognizing the complexity of real-world banking authorization, I incorporated a
 
   For more complex banking business scenarios, we can extend our design in the seed so that we can add relevant nodes and relationships, and revise our Cypher query conresponsively.
 
-- REST endpoint: `POST /api/entitlement/check`.
+:trophy: - REST endpoint: `POST /api/entitlement/check`.
 
-- Seed endpoint (`POST /api/seed`) with duplicate‑safe `MERGE` statements.
+:trophy: - Seed endpoint (`POST /api/seed`) with duplicate‑safe `MERGE` statements.
 
-- Unit tests cover all scenarios plus edge cases (unknown subject, no permission, no resource).
+:trophy: - Unit tests cover all scenarios plus edge cases (unknown subject, no permission, no resource).
 
 ## Setup
 1. Install .NET 10 SDK and Neo4j v5.23 or later.
